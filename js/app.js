@@ -15,6 +15,23 @@
 			floor.position.y = -0.5;
 			floor.rotation.x = -Math.PI/2;
 			scene.add( floor );
+			// 1st wall
+			var wall1Material = new THREE.MeshBasicMaterial({color: 0x0000ff,  side:THREE.DoubleSide})
+			var wall1Geometry = new THREE.PlaneGeometry(10,10,10,10);
+			var wall1 = new THREE.Mesh(wall1Geometry, wall1Material);
+			wall1.position.y = 4.5;
+			wall1.position.z -=5;
+			wall1.rotation.x = Math.PI;
+			scene.add( wall1 );
+			// 2nd wall
+			var wall2Material = new THREE.MeshBasicMaterial({color: 0xff0000,  side:THREE.DoubleSide})
+			var wall2Geometry = new THREE.PlaneGeometry(10,10,10,10);
+			var wall2 = new THREE.Mesh(wall2Geometry, wall2Material);
+			wall2.position.y = 4.5;
+			wall2.position.x += 5;
+			wall2.rotation.y = Math.PI/2;
+			wall2.rotation.x = Math.PI;
+			scene.add( wall2 );
 			//Rotation controls
 			var controls = new THREE.OrbitControls( camera, renderer.domElement );
 			//Render material
@@ -32,11 +49,12 @@
 			var parameters = 
 			{
 				a: '#ff8800', // color(hex)
+				b: "Tekst"
 			};
 			//
 			var controller = gui.addColor( parameters, 'a' ).name('Color');
+			gui.add(parameters , "b").name('Gaida');
 			controller.onChange(function(){
-				console.log(parameters["a"]);
 				document.body.childNodes[8].style.backgroundColor = parameters["a"];
 			});
 			gui.open();
