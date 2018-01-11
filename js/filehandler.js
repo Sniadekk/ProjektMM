@@ -4,14 +4,6 @@ function getPhoto()
 	console.log(input.files);
 	
 }
-
-
-var filehandler = {
-
-
-
-
-
-
-
+function click(){
+	console.log("guitar hello");
 }

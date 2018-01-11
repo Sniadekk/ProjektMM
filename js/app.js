@@ -19,11 +19,6 @@
 					this.getMaterials();
 					this.getModel();
 					this.animate();
-					
-					
-					
-				
-			
 				}
 
 				listeners(){
@@ -40,39 +35,34 @@
 				animate(){
 				requestAnimationFrame(this.animate);
 				this.renderer.render(this.scene,this.camera);
-				
-				
 				}
 
 				getMaterials(){
 					this.materialLoader.setPath('materialy');
-					this.materials = this.materialLoader.load('/niebieski.jpg',(texture)=>{
+					this.materials = this.materialLoader.load('/okleina naturalna.JPG',(texture)=>{
 							this.material = new THREE.MeshStandardMaterial({map:texture});
-							console.log(this.material);
-							
-
 					});
 				}
 
-				appendMaterial(){
+				appendMaterial(material){
 					for(let x = 0; x < this.object.children.length; x++){
-						this.object.children[x].material = this.material;
+						if(this.object.children[x] === undefined){
+                            console.log(this.object.children[x]);
+                		}else{
+                            this.object.children[x].material = material;
+                            console.log(this.object.children[x].material);
+						}
 					}
 				}
 
 				getModel(){
 					this.loader.setPath(this.path);
 					this.loader.load(this.path,(object)=>{
-					this.scene.add(object)
+					this.scene.add(object);
 					this.object = object;
-					this.appendMaterial();
-					
+					this.appendMaterial(this.material);
 					});
-
 				};
-
-				
-
 			}
 
 			const app = new App();
