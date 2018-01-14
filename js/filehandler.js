@@ -1,8 +1,25 @@
-function getPhoto()
+function getPhoto(evt)
 {
-	let input = document.getElementById("photoInput");
-	console.log(input.files);
-	
+
+		var files = evt.target.files;
+		for (var i = 0, f; f = files[i]; i++) {
+		  if (!f.type.match('image.*')) {
+			continue;
+		  }
+		  var reader = new FileReader();
+		  reader.onload = (function(theFile) {
+			return function(e) {
+				scene.remove(wall1);
+				var loader = new THREE.TextureLoader();
+				loader.load(e.target.result, function ( texture ) {
+				console.log(texture);
+				//document.body.style.backgroundImage = "url(')
+				});
+			};
+		  })(f);
+		reader.readAsDataURL(f);
+		}
+		document.getElementById('imgConvert').addEventListener('change', handleFileSelect, false);
 }
 
 
@@ -15,23 +32,3 @@ var filehandler = {
 
 
 }
-
-
-function setBackgroundImage()
-{
-
-	var input = document.getElementById("fileInput");
-	if (input.files && input.files[0]) 
-	{
-		var reader = new FileReader();
-		reader.onload = function (e) 
-		{
-			document.body.style.backgroundImage = 'url(' + e.target.result + ')';
-			document.body.style.backgroundRepeat = "no-repeat, repeat;";
-			document.body.style.backgroundAttachment = "fixed";
-			document.body.style.backgroundSize = "100% 100%";
-		};
-		reader.readAsDataURL(input.files[0]);
-	}
-}
-document.getElementById('fileInput').addEventListener('change', setBackgroundImage, false);
